@@ -1,0 +1,13 @@
+{
+  "name": "student-finance-tracker",
+  "version": "1.0.0",
+  "description": "A comprehensive student finance tracking application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": ["finance", "tracker", "student", "budget", "expenses"],
+  "author": "ABBs Team",
+  "license": "MIT"
+}

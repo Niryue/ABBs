@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Finance Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <span>Spendly</span>
+                </div>
+                <div class="welcome-section">
+                    <h1>Welcome back, Alex!</h1>
+                    <p>Here's your financial overview for today</p>
+                </div>
+                <div class="header-actions">
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge" id="notificationBadge">3</div>
+                    </div>
+                    <div class="profile-pic" id="profilePic">A</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-tab="budgets">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Budget Planner</span>
+                </div>
+                <div class="nav-item" data-tab="ai-coach">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Coach</span>
+                </div>
+                <div class="nav-item" data-tab="insights">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Financial Insights</span>
+                </div>
+                <div class="nav-item" data-tab="alerts">
+                    <i class="fas fa-bell"></i>
+                    <span>Alerts</span>
+                </div>
+                <div class="nav-item" data-tab="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+            <div class="student-plan">
+                <div class="plan-icon">🎓</div>
+                <div class="plan-content">
+                    <h4>Student Plan</h4>
+                    <p>Get personalized tips for your campus</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-icon school-account">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>School Account</h3>
+                            <div class="card-value" id="currentBalance">$2,847.50</div>
+                            <div class="card-change positive">+2.5%</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon tuition">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Tuition Owed</h3>
+                            <div class="card-value">$1,250.00</div>
+                            <div class="card-change negative">Due in 12 days</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon daily-budget">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Daily Budget</h3>
+                            <div class="card-value">$45.00</div>
+                            <div class="card-change neutral">Remaining today</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon savings">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Money Saved</h3>
+                            <div class="card-value">$47.80</div>
+                            <div class="card-change positive">This week</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="main-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Spending Overview -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Spending Overview</h3>
+                                <select class="time-filter">
+                                    <option>This Month</option>
+                                    <option>This Week</option>
+                                    <option>This Year</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <div class="chart-placeholder">
+                                    <div class="chart-bars">
+                                        <div class="bar food" style="height: 80%;" data-amount="$420">
+                                            <span class="bar-amount">$420</span>
+                                        </div>
+                                        <div class="bar transport" style="height: 40%;" data-amount="$180">
+                                            <span class="bar-amount">$180</span>
+                                        </div>
+                                        <div class="bar books" style="height: 60%;" data-amount="$250">
+                                            <span class="bar-amount">$250</span>
+                                        </div>
+                                        <div class="bar entertainment" style="height: 30%;" data-amount="$120">
+                                            <span class="bar-amount">$120</span>
+                                        </div>
+                                        <div class="bar personal" style="height: 50%;" data-amount="$200">
+                                            <span class="bar-amount">$200</span>
+                                        </div>
+                                        <div class="bar other" style="height: 25%;" data-amount="$90">
+                                            <span class="bar-amount">$90</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-labels">
+                                        <span>Food</span>
+                                        <span>Transport</span>
+                                        <span>Books</span>
+                                        <span>Entertainment</span>
+                                        <span>Personal</span>
+                                        <span>Other</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="card">
+                            <h3>Recent Transactions</h3>
+                            <div class="transactions-list" id="recentTransactions">
+                                <div class="transaction-item">
+                                    <div class="transaction-icon coffee">
+                                        <i class="fas fa-coffee"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-name">Starbucks</div>
+                                        <div class="transaction-time">Today, 2:30 PM</div>
+                                    </div>
+                                    <div class="transaction-amount expense">-$5.45</div>
+                                </div>
+                                <div class="transaction-item">
+                                    <div class="transaction-icon books">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-name">Campus Bookstore</div>
+                                        <div class="transaction-time">Yesterday, 11:15 AM</div>
+                                    </div>
+                                    <div class="transaction-amount expense">-$87.50</div>
+                                </div>
+                                <div class="transaction-item">
+                                    <div class="transaction-icon food">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-name">Dining Hall</div>
+                                        <div class="transaction-time">Yesterday, 7:45 PM</div>
+                                    </div>
+                                    <div class="transaction-amount expense">-$12.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- AI Coach -->
+                        <div class="card ai-coach-card">
+                            <div class="coach-header">
+                                <div class="coach-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="coach-title">
+                                    <h3>AI Financial Advisor</h3>
+                                    <p>Smart insights & predictions</p>
+                                </div>
+                            </div>
+                            <div class="coach-content">
+                                <div class="coach-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">This Month</span>
+                                        <span class="stat-value">$2,340</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Savings Goal</span>
+                                        <span class="stat-value">85%</span>
+                                    </div>
+                                </div>
+                                <div class="coach-message">
+                                    <p><strong>💡 Smart Tip:</strong> You're spending 15% more on food this month. Try meal prepping to save $80!</p>
+                                </div>
+                                <div class="coach-prediction">
+                                    <p><strong>🔮 Prediction:</strong> At this rate, you'll save $450 this month - exceeding your goal!</p>
+                                </div>
+                            </div>
+                            <div class="coach-actions">
+                                <button class="btn btn-primary" onclick="financeTracker.switchTab('ai-coach')">
+                                    <i class="fas fa-comments"></i> Chat Now
+                                </button>
+                                <button class="btn btn-secondary" onclick="financeTracker.switchTab('insights')">
+                                    <i class="fas fa-chart-line"></i> View Insights
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Recent Alerts -->
+                        <div class="card">
+                            <h3>Recent Alerts</h3>
+                            <div class="alerts-list">
+                                <div class="alert-item warning">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-text">Tuition payment due</div>
+                                        <div class="alert-time">Due in 5 days</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item success">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-text">Great job on meal planning</div>
+                                        <div class="alert-time">Saved $15 this week!</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item info">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-text">Student discount available</div>
+                                        <div class="alert-time">Save $20/month at campus gym</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div class="tab-content" id="transactions">
+                <div class="section-header">
+                    <h2>All Transactions</h2>
+                    <div class="filter-controls">
+                        <select id="transactionFilter">
+                            <option value="all">All Transactions</option>
+                            <option value="income">Income Only</option>
+                            <option value="expense">Expenses Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <p class="no-data">No transactions found</p>
+                </div>
+            </div>
+
+            <!-- Budgets Tab -->
+            <div class="tab-content" id="budgets">
+                <div class="section-header">
+                    <h2>Budget Management</h2>
+                    <button class="btn btn-primary" id="addBudgetBtn">
+                        <i class="fas fa-plus"></i> Add Budget
+                    </button>
+                </div>
+                <div class="budgets-list" id="budgetsList">
+                    <p class="no-data">No budgets created</p>
+                </div>
+            </div>
+
+            <!-- Goals Tab -->
+            <div class="tab-content" id="goals">
+                <div class="section-header">
+                    <h2>Financial Goals</h2>
+                    <button class="btn btn-primary" id="addGoalBtn">
+                        <i class="fas fa-plus"></i> Add Goal
+                    </button>
+                </div>
+                <div class="goals-list" id="goalsList">
+                    <p class="no-data">No financial goals set</p>
+                </div>
+            </div>
+
+            <!-- Financial Insights Tab -->
+            <div class="tab-content" id="insights">
+                <div class="section-header">
+                    <h2>Financial Insights & Analytics</h2>
+                    <button class="btn btn-secondary">Export Report</button>
+                </div>
+                <div class="insights-grid" id="insightsContainer">
+                    <!-- Insights will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Alerts Tab -->
+            <div class="tab-content" id="alerts">
+                <div class="section-header">
+                    <h2>Recent Alerts</h2>
+                    <button class="btn btn-secondary">Mark All Read</button>
+                </div>
+                <div class="alerts-list" id="alertsList">
+                    <!-- Alerts will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- AI Coach Tab -->
+            <div class="tab-content" id="ai-coach">
+                <div class="section-header">
+                    <h2>AI Financial Advisor</h2>
+                    <button class="btn btn-primary" id="askAICoach">
+                        <i class="fas fa-robot"></i> Ask AI Advisor
+                    </button>
+                </div>
+                
+                <!-- AI Analysis Cards -->
+                <div class="ai-analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Spending Trends</h3>
+                        </div>
+                        <div class="analysis-content" id="spendingTrends">
+                            <!-- AI analysis will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-crystal-ball"></i>
+                            <h3>Predictions</h3>
+                        </div>
+                        <div class="analysis-content" id="predictions">
+                            <!-- AI predictions will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Recommendations</h3>
+                        </div>
+                        <div class="analysis-content" id="recommendations">
+                            <!-- AI recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Interface -->
+                <div class="ai-chat-container" id="aiChatContainer">
+                    <div class="chat-header">
+                        <h3>Chat with AI Advisor</h3>
+                        <p>Get personalized financial guidance</p>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Hi Alex! I've analyzed your spending patterns and have some insights. I can help you with budgeting, predict future expenses, and provide personalized recommendations. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="Ask me anything about your finances..." />
+                        <button id="sendMessage" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings">
+                <div class="section-header">
+                    <h2>Account Settings</h2>
+                    <button class="btn btn-primary" onclick="financeTracker.saveSettings()">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Financial Summary</h3>
+                        <div class="form-group">
+                            <label>School Account Balance</label>
+                            <input type="number" id="schoolAccount" value="2500" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Tuition Owed</label>
+                            <input type="number" id="tuitionOwed" value="12000" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Daily Budget</label>
+                            <input type="number" id="dailyBudget" value="50" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Money Saved This Month</label>
+                            <input type="number" id="moneySaved" value="450" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Profile Settings</h3>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" id="userName" value="Alex">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="userEmail" value="alex@university.edu">
+                        </div>
+                        <div class="form-group">
+                            <label>University</label>
+                            <input type="text" id="userUniversity" value="State University">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Transaction Tab -->
+            <div class="tab-content" id="add-transaction">
+                <div class="section-header">
+                    <h2>Add New Transaction</h2>
+                </div>
+                <form class="transaction-form" id="transactionForm">
+                    <div class="form-group">
+                        <label for="transactionType">Type</label>
+                        <select id="transactionType" required>
+                            <option value="">Select Type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionAmount">Amount</label>
+                        <input type="number" id="transactionAmount" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionDescription">Description</label>
+                        <input type="text" id="transactionDescription" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionCategory">Category</label>
+                        <select id="transactionCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="education">Education</option>
+                            <option value="housing">Housing</option>
+                            <option value="utilities">Utilities</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionDate">Date</label>
+                        <input type="date" id="transactionDate" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Transaction
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Budget Modal -->
+    <div class="modal" id="budgetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Budget</h3>
+                <button class="close-btn" id="closeBudgetModal">&times;</button>
+            </div>
+            <form id="budgetForm">
+                <div class="form-group">
+                    <label for="budgetCategory">Category</label>
+                    <select id="budgetCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="food">Food & Dining</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="education">Education</option>
+                        <option value="housing">Housing</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="budgetAmount">Budget Amount</label>
+                    <input type="number" id="budgetAmount" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="budgetPeriod">Period</label>
+                    <select id="budgetPeriod" required>
+                        <option value="monthly">Monthly</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Budget</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
