@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Finance Monitor - Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .card { background: #f8f9fa; padding: 20px; margin: 10px 0; border-radius: 8px; border: 1px solid #dee2e6; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Family Finance Monitor - Test</h1>
+        <div id="loginScreen">
+            <h2>Welcome to Family Finance Monitor</h2>
+            <p>Monitor your children's spending and financial goals</p>
+            <button class="btn" onclick="login()">Login as Parent</button>
+        </div>
+        
+        <div id="mainApp" class="hidden">
+            <h2>Family Dashboard</h2>
+            <div class="card">
+                <h3>Children</h3>
+                <div id="childrenList"></div>
+            </div>
+            <div class="card">
+                <h3>Recent Transactions</h3>
+                <div id="transactionsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let app = {
+            children: [
+                { name: "Alex", age: 16, balance: 847.50, spending: 156.75 },
+                { name: "Emma", age: 14, balance: 423.25, spending: 89.50 },
+                { name: "Jake", age: 12, balance: 156.80, spending: 67.25 }
+            ],
+            transactions: [
+                { merchant: "Starbucks", amount: -5.45, child: "Alex", date: "2024-01-15" },
+                { merchant: "Target", amount: -45.99, child: "Emma", date: "2024-01-14" },
+                { merchant: "GameStop", amount: -29.99, child: "Jake", date: "2024-01-12" }
+            ]
+        };
+
+        function login() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            renderChildren();
+            renderTransactions();
+        }
+
+        function renderChildren() {
+            const container = document.getElementById('childrenList');
+            container.innerHTML = app.children.map(child => `
+                <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 5px;">
+                    <h4>${child.name} (${child.age} years old)</h4>
+                    <p>Balance: $${child.balance}</p>
+                    <p>This month: $${child.spending}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderTransactions() {
+            const container = document.getElementById('transactionsList');
+            container.innerHTML = app.transactions.map(tx => `
+                <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 5px;">
+                    <strong>${tx.merchant}</strong> - $${Math.abs(tx.amount)} (${tx.child}) - ${tx.date}
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

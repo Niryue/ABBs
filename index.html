@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Finance Tracker</title>
+    <title>University Finance AI - Campus Life Assistant</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -14,11 +14,11 @@
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon"></div>
-                    <span>Spendly</span>
+                    <span>University Finance AI</span>
                 </div>
                 <div class="welcome-section">
-                    <h1>Welcome back, Alex!</h1>
-                    <p>Here's your financial overview for today</p>
+                    <h1>Welcome back, Sarah!</h1>
+                    <p>AI-powered campus life assistant for university students</p>
                 </div>
                 <div class="header-actions">
                     <div class="notification-bell" id="notificationBell">
@@ -35,34 +35,42 @@
             <div class="sidebar-nav">
                 <div class="nav-item active" data-tab="dashboard">
                     <i class="fas fa-chart-pie"></i>
-                    <span>Dashboard</span>
+                    <span>Campus Dashboard</span>
                 </div>
-                <div class="nav-item" data-tab="budgets">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Budget Planner</span>
+                <div class="nav-item" data-tab="students">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Students</span>
                 </div>
-                <div class="nav-item" data-tab="ai-coach">
-                    <i class="fas fa-robot"></i>
-                    <span>AI Coach</span>
+                <div class="nav-item" data-tab="goals">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Financial Goals</span>
                 </div>
-                <div class="nav-item" data-tab="insights">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Financial Insights</span>
+                <div class="nav-item" data-tab="transactions">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Campus Transactions</span>
                 </div>
                 <div class="nav-item" data-tab="alerts">
                     <i class="fas fa-bell"></i>
                     <span>Alerts</span>
+                </div>
+                <div class="nav-item" data-tab="ai-coach">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </div>
+                <div class="nav-item" data-tab="subscription">
+                    <i class="fas fa-crown"></i>
+                    <span>Subscription</span>
                 </div>
                 <div class="nav-item" data-tab="settings">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </div>
             </div>
-            <div class="student-plan">
+            <div class="subscription-plan">
                 <div class="plan-icon">🎓</div>
                 <div class="plan-content">
-                    <h4>Student Plan</h4>
-                    <p>Get personalized tips for your campus</p>
+                    <h4>University Plan</h4>
+                    <p>Monitor up to 4 students</p>
                 </div>
             </div>
         </aside>
@@ -74,49 +82,49 @@
                 <!-- Summary Cards -->
                 <div class="summary-cards">
                     <div class="summary-card">
-                        <div class="card-icon school-account">
-                            <i class="fas fa-university"></i>
+                        <div class="card-icon total-spending">
+                            <i class="fas fa-credit-card"></i>
                         </div>
                         <div class="card-content">
-                            <h3>School Account</h3>
-                            <div class="card-value" id="currentBalance">$2,847.50</div>
-                            <div class="card-change positive">+2.5%</div>
+                            <h3>Total Campus Spending</h3>
+                            <div class="card-value" id="totalSpending">$1,247.50</div>
+                            <div class="card-change positive">This month</div>
                         </div>
                     </div>
 
                     <div class="summary-card">
-                        <div class="card-icon tuition">
+                        <div class="card-icon children-count">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Tuition Owed</h3>
-                            <div class="card-value">$1,250.00</div>
-                            <div class="card-change negative">Due in 12 days</div>
+                            <h3>Students Monitored</h3>
+                            <div class="card-value">3</div>
+                            <div class="card-change neutral">Active accounts</div>
                         </div>
                     </div>
 
                     <div class="summary-card">
-                        <div class="card-icon daily-budget">
-                            <i class="fas fa-piggy-bank"></i>
+                        <div class="card-icon goals-progress">
+                            <i class="fas fa-bullseye"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Daily Budget</h3>
-                            <div class="card-value">$45.00</div>
-                            <div class="card-change neutral">Remaining today</div>
+                            <h3>Goals Progress</h3>
+                            <div class="card-value">75%</div>
+                            <div class="card-change positive">On track</div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 35%;"></div>
+                                <div class="progress-fill" style="width: 75%;"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="summary-card">
                         <div class="card-icon savings">
-                            <i class="fas fa-coins"></i>
+                            <i class="fas fa-piggy-bank"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Money Saved</h3>
-                            <div class="card-value">$47.80</div>
-                            <div class="card-change positive">This week</div>
+                            <h3>Total Savings</h3>
+                            <div class="card-value">$2,847.50</div>
+                            <div class="card-change positive">+$125 this week</div>
                         </div>
                     </div>
                 </div>
@@ -239,11 +247,11 @@
                                 </div>
                             </div>
                             <div class="coach-actions">
-                                <button class="btn btn-primary" onclick="financeTracker.switchTab('ai-coach')">
-                                    <i class="fas fa-comments"></i> Chat Now
+                                <button class="btn btn-primary" onclick="familyFinanceMonitor.switchTab('children')">
+                                    <i class="fas fa-child"></i> View Children
                                 </button>
-                                <button class="btn btn-secondary" onclick="financeTracker.switchTab('insights')">
-                                    <i class="fas fa-chart-line"></i> View Insights
+                                <button class="btn btn-secondary" onclick="familyFinanceMonitor.switchTab('goals')">
+                                    <i class="fas fa-bullseye"></i> View Goals
                                 </button>
                             </div>
                         </div>
@@ -288,17 +296,28 @@
             <!-- Transactions Tab -->
             <div class="tab-content" id="transactions">
                 <div class="section-header">
-                    <h2>All Transactions</h2>
+                    <h2>Campus Transactions (Plaid Data)</h2>
                     <div class="filter-controls">
                         <select id="transactionFilter">
                             <option value="all">All Transactions</option>
-                            <option value="income">Income Only</option>
-                            <option value="expense">Expenses Only</option>
+                            <option value="alex">Alex's Account</option>
+                            <option value="emma">Emma's Account</option>
+                            <option value="jake">Jake's Account</option>
                         </select>
+                        <button class="btn btn-secondary" id="refreshPlaidData">
+                            <i class="fas fa-sync"></i> Refresh Data
+                        </button>
+                    </div>
+                </div>
+                <div class="plaid-status">
+                    <div class="plaid-indicator">
+                        <i class="fas fa-link"></i>
+                        <span>Connected to Plaid</span>
+                        <div class="status-dot active"></div>
                     </div>
                 </div>
                 <div class="transactions-list" id="transactionsList">
-                    <p class="no-data">No transactions found</p>
+                    <p class="no-data">Loading bank transactions...</p>
                 </div>
             </div>
 
@@ -315,16 +334,110 @@
                 </div>
             </div>
 
+            <!-- Students Tab -->
+            <div class="tab-content" id="students">
+                <div class="section-header">
+                    <h2>University Students</h2>
+                    <button class="btn btn-primary" id="addChildBtn">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
+                </div>
+                <div class="children-grid" id="childrenGrid">
+                    <!-- Student cards will be populated by JavaScript -->
+                </div>
+            </div>
+
             <!-- Goals Tab -->
             <div class="tab-content" id="goals">
                 <div class="section-header">
-                    <h2>Financial Goals</h2>
+                    <h2>Financial Goals for Students</h2>
                     <button class="btn btn-primary" id="addGoalBtn">
                         <i class="fas fa-plus"></i> Add Goal
                     </button>
                 </div>
                 <div class="goals-list" id="goalsList">
                     <p class="no-data">No financial goals set</p>
+                </div>
+            </div>
+
+            <!-- AI Coach Tab -->
+            <div class="tab-content" id="ai-coach">
+                <div class="section-header">
+                    <h2>AI Campus Life Assistant</h2>
+                    <button class="btn btn-primary" onclick="familyFinanceMonitor.generateAIInsights()">
+                        <i class="fas fa-brain"></i> Generate New Insights
+                    </button>
+                </div>
+                
+                <!-- AI Analysis Cards -->
+                <div class="ai-analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Spending Trends</h3>
+                        </div>
+                        <div class="analysis-content" id="spendingTrends">
+                            <!-- AI analysis will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-crystal-ball"></i>
+                            <h3>AI Predictions</h3>
+                        </div>
+                        <div class="analysis-content" id="aiPredictions">
+                            <!-- AI predictions will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Smart Recommendations</h3>
+                        </div>
+                        <div class="analysis-content" id="aiRecommendations">
+                            <!-- AI recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Interface -->
+                <div class="ai-chat-container" id="aiChatContainer">
+                    <div class="chat-header">
+                        <h3>Chat with AI Assistant</h3>
+                        <p>Get personalized campus life guidance for university students</p>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Hi Sarah! I've analyzed your students' campus spending patterns and I'm here to help. I can provide insights on dining hall usage, textbook expenses, entertainment spending, and give personalized recommendations for each student's financial goals. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="Ask me anything about campus life and student finances..." />
+                        <button id="sendMessage" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscription Tab -->
+            <div class="tab-content" id="subscription">
+                <div class="section-header">
+                    <h2>Subscription Plans</h2>
+                    <div class="current-plan-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Family Plan - Active</span>
+                    </div>
+                </div>
+                <div class="subscription-plans" id="subscriptionPlans">
+                    <!-- Subscription plans will be populated by JavaScript -->
                 </div>
             </div>
 
@@ -421,7 +534,7 @@
             <div class="tab-content" id="settings">
                 <div class="section-header">
                     <h2>Account Settings</h2>
-                    <button class="btn btn-primary" onclick="financeTracker.saveSettings()">
+                    <button class="btn btn-primary" onclick="familyFinanceMonitor.saveSettings()">
                         <i class="fas fa-save"></i> Save Changes
                     </button>
                 </div>

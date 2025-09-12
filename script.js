@@ -1,27 +1,27 @@
-// Student Finance Tracker JavaScript
+// Family Finance Monitor JavaScript
 
-class FinanceTracker {
+class FamilyFinanceMonitor {
     constructor() {
         this.transactions = this.loadFromStorage('transactions') || [];
-        this.budgets = this.loadFromStorage('budgets') || [];
+        this.children = this.loadFromStorage('children') || [];
         this.financialGoals = this.loadFromStorage('financialGoals') || [];
         this.userProfile = this.loadFromStorage('userProfile') || null;
         this.financialInsights = this.loadFromStorage('financialInsights') || [];
         this.alerts = this.loadFromStorage('alerts') || [];
         this.chatHistory = this.loadFromStorage('chatHistory') || [];
         this.spendingData = this.loadFromStorage('spendingData') || {};
+        this.plaidData = this.loadFromStorage('plaidData') || {};
         this.settings = this.loadFromStorage('settings') || {
-            schoolAccount: 2500,
-            tuitionOwed: 12000,
-            dailyBudget: 50,
-            moneySaved: 450,
-            userName: 'Alex',
-            userEmail: 'alex@university.edu',
-            userUniversity: 'State University'
+            userName: 'Sarah',
+            userEmail: 'sarah@universityfinance.com',
+            subscriptionPlan: 'University Plan',
+            maxStudents: 4
         };
         this.currentTab = 'dashboard';
         this.isLoggedIn = this.loadFromStorage('isLoggedIn') || false;
         this.geminiApiKey = 'AIzaSyAwbRCVz2xuBJ4lu5wATsaaqMzF9EJfNmo';
+        this.aiInsights = [];
+        this.chatHistory = [];
         
         this.init();
     }
@@ -32,14 +32,15 @@ class FinanceTracker {
         
         if (this.isLoggedIn && this.userProfile) {
             this.renderDashboard();
+            this.renderChildren();
             this.renderTransactions();
-            this.renderBudgets();
             this.renderFinancialGoals();
-            this.renderFinancialInsights();
+            this.renderSubscriptionPlans();
             this.generateRealAlerts();
             this.generateDynamicInsights();
-            this.generateSpendingData();
-            this.updateBalance();
+            this.generatePlaidData();
+            this.generateAIInsights();
+            this.setupAIChat();
             this.updateSummaryCards();
             this.updateWelcomeMessage();
         } else {
@@ -47,45 +48,166 @@ class FinanceTracker {
         }
     }
 
-    generateAlexProfile() {
-        const monthlyTuition = 3200 / 4; // Spread tuition across 4 months
-        const totalExpenses = 1200 + 400 + 150 + 300 + 200 + 250 + monthlyTuition;
-        const monthlyBalance = 1800 - totalExpenses;
-        
+    generateParentProfile() {
         return {
-            name: "Alex",
-            school: "University of California",
-            major: "Computer Science",
-            year: "Junior",
-            graduationDate: "2025-05-15",
-            monthlyIncome: 1800,
-            tuitionPerTerm: 3200,
-            monthlyTuition: monthlyTuition,
-            rent: 1200,
-            food: 400,
-            transportation: 150,
-            entertainment: 300,
-            booksSupplies: 200,
-            otherExpenses: 250,
-            totalMonthlyExpenses: totalExpenses,
-            monthlyBalance: monthlyBalance,
-            email: "alex@university.edu",
-            phone: "+1-555-ALEX",
-            address: "123 University Ave, Berkeley, CA",
-            currentBalance: 2847.50,
-            weeklyChange: 125,
-            dailyBudget: 70,
-            dailyRemaining: 45,
-            tuitionDue: 1250,
-            daysUntilTuition: 12,
-            financialHealthScore: this.calculateFinancialHealthScore({
-                monthlyIncome: 1800,
-                totalMonthlyExpenses: totalExpenses,
-                rent: 1200,
-                food: 400,
-                monthlyTuition: monthlyTuition
-            })
+            name: "Sarah",
+            email: "sarah@universityfinance.com",
+            phone: "+1-555-SARAH",
+            address: "123 University Avenue, Campus City, CA",
+            subscriptionPlan: "University Plan",
+            maxStudents: 4,
+            currentStudents: 3,
+            totalCampusSpending: 1247.50,
+            monthlyBudget: 3000,
+            savingsGoal: 5000,
+            currentSavings: 2847.50
         };
+    }
+
+    generateChildrenData() {
+        return [
+            {
+                id: 1,
+                name: "Alex",
+                age: 20,
+                year: "Junior",
+                major: "Computer Science",
+                bankAccount: "Chase Student Account",
+                currentBalance: 847.50,
+                monthlyAllowance: 800,
+                spendingThisMonth: 456.75,
+                lastTransaction: "2 hours ago",
+                goals: [
+                    { name: "Study abroad fund", target: 5000, current: 2847.50, deadline: "2024-06-15" },
+                    { name: "Gaming setup", target: 1200, current: 450, deadline: "2024-03-30" }
+                ],
+                recentTransactions: [
+                    { description: "Campus Dining Hall", amount: -12.50, date: "2024-01-15", category: "Food & Dining" },
+                    { description: "Textbook purchase", amount: -89.99, date: "2024-01-14", category: "Education" },
+                    { description: "Student loan disbursement", amount: 800.00, date: "2024-01-01", category: "Income" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Emma",
+                age: 19,
+                year: "Sophomore",
+                major: "Art History",
+                bankAccount: "Wells Fargo Student Account",
+                currentBalance: 623.25,
+                monthlyAllowance: 600,
+                spendingThisMonth: 289.50,
+                lastTransaction: "1 day ago",
+                goals: [
+                    { name: "Art supplies", target: 800, current: 320, deadline: "2024-05-20" },
+                    { name: "Museum trip", target: 200, current: 80, deadline: "2024-02-28" }
+                ],
+                recentTransactions: [
+                    { description: "Campus Bookstore", amount: -45.75, date: "2024-01-14", category: "Education" },
+                    { description: "Spotify Student", amount: -4.99, date: "2024-01-10", category: "Entertainment" },
+                    { description: "Student loan disbursement", amount: 600.00, date: "2024-01-01", category: "Income" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Jake",
+                age: 18,
+                year: "Freshman",
+                major: "Engineering",
+                bankAccount: "Bank of America Student Account",
+                currentBalance: 445.80,
+                monthlyAllowance: 500,
+                spendingThisMonth: 245.25,
+                lastTransaction: "3 days ago",
+                goals: [
+                    { name: "Engineering calculator", target: 400, current: 180, deadline: "2024-04-10" },
+                    { name: "Lab equipment", target: 300, current: 80, deadline: "2024-04-15" }
+                ],
+                recentTransactions: [
+                    { description: "Campus Recreation Center", amount: -15.00, date: "2024-01-12", category: "Health & Wellness" },
+                    { description: "Campus Dining", amount: -8.50, date: "2024-01-11", category: "Food & Dining" },
+                    { description: "Student loan disbursement", amount: 500.00, date: "2024-01-01", category: "Income" }
+                ]
+            }
+        ];
+    }
+
+    generatePlaidData() {
+        const plaidTransactions = [];
+        const children = this.children;
+        const merchants = [
+            "Campus Dining Hall", "University Bookstore", "Campus Recreation Center", "Student Union", "Campus Coffee Shop", "Textbook Store", "Campus Parking", "Student Health Center", "Campus Laundry", "Campus Vending", "Spotify Student", "Netflix Student", "Campus Library", "Campus Print Shop", "Student Activities", "Campus Transportation", "Campus Housing", "Student ID Office", "Campus ATM", "Campus Post Office"
+        ];
+        
+        const categories = {
+            "Campus Dining Hall": "Food & Dining",
+            "University Bookstore": "Education",
+            "Campus Recreation Center": "Health & Wellness",
+            "Student Union": "Entertainment",
+            "Campus Coffee Shop": "Food & Dining",
+            "Textbook Store": "Education",
+            "Campus Parking": "Transportation",
+            "Student Health Center": "Health & Wellness",
+            "Campus Laundry": "Personal Care",
+            "Campus Vending": "Food & Dining",
+            "Spotify Student": "Entertainment",
+            "Netflix Student": "Entertainment",
+            "Campus Library": "Education",
+            "Campus Print Shop": "Education",
+            "Student Activities": "Entertainment",
+            "Campus Transportation": "Transportation",
+            "Campus Housing": "Housing",
+            "Student ID Office": "Administrative",
+            "Campus ATM": "Banking",
+            "Campus Post Office": "Administrative"
+        };
+
+        // Generate transactions for the last 30 days
+        for (let i = 0; i < 30; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            
+            children.forEach(child => {
+                // Generate 0-3 transactions per day per child
+                const numTransactions = Math.floor(Math.random() * 4);
+                
+                for (let j = 0; j < numTransactions; j++) {
+                    const merchant = merchants[Math.floor(Math.random() * merchants.length)];
+                    const amount = -(Math.random() * 50 + 5).toFixed(2);
+                    const category = categories[merchant] || "Other";
+                    
+                    plaidTransactions.push({
+                        id: `plaid_${Date.now()}_${Math.random()}`,
+                        childId: child.id,
+                        childName: child.name,
+                        accountId: child.bankAccount,
+                        merchant: merchant,
+                        amount: parseFloat(amount),
+                        category: category,
+                        date: date.toISOString().split('T')[0],
+                        timestamp: date.toISOString(),
+                        accountType: "checking",
+                        transactionType: "debit",
+                        pending: Math.random() > 0.9
+                    });
+                }
+            });
+        }
+
+        this.plaidData = {
+            transactions: plaidTransactions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)),
+            lastSync: new Date().toISOString(),
+            connectedAccounts: children.map(child => ({
+                id: child.id,
+                name: child.name,
+                accountId: child.bankAccount,
+                balance: child.currentBalance,
+                accountType: "checking"
+            }))
+        };
+
+        this.saveToStorage('plaidData', this.plaidData);
+        this.saveToStorage('children', this.children);
     }
 
     calculateFinancialHealthScore(budgetData) {
@@ -167,7 +289,7 @@ class FinanceTracker {
         const loginBtn = document.getElementById('loginBtn');
         if (loginBtn) {
             loginBtn.addEventListener('click', () => {
-                this.loginAsPeterParker();
+                this.loginAsParent();
             });
         }
 
@@ -259,13 +381,14 @@ class FinanceTracker {
         
         // Re-setup event listeners for login
         document.getElementById('loginBtn').addEventListener('click', () => {
-            this.loginAsAlex();
+            this.loginAsParent();
         });
     }
 
-    loginAsAlex() {
-        // Generate Alex profile
-        this.userProfile = this.generateAlexProfile();
+    loginAsParent() {
+        // Generate parent profile
+        this.userProfile = this.generateParentProfile();
+        this.children = this.generateChildrenData();
         this.isLoggedIn = true;
         
         // Generate sample data
@@ -273,11 +396,10 @@ class FinanceTracker {
         
         // Save to storage
         this.saveToStorage('userProfile', this.userProfile);
+        this.saveToStorage('children', this.children);
         this.saveToStorage('isLoggedIn', this.isLoggedIn);
         this.saveToStorage('transactions', this.transactions);
-        this.saveToStorage('budgets', this.budgets);
         this.saveToStorage('financialGoals', this.financialGoals);
-        this.saveToStorage('campusSavings', this.campusSavings);
         this.saveToStorage('alerts', this.alerts);
         this.saveToStorage('chatHistory', this.chatHistory);
         
@@ -642,18 +764,18 @@ class FinanceTracker {
         // Refresh data when switching tabs
         if (tabName === 'dashboard') {
             this.renderDashboard();
+                } else if (tabName === 'students') {
+                    this.renderChildren();
         } else if (tabName === 'transactions') {
             this.renderTransactions();
-        } else if (tabName === 'budgets') {
-            this.renderBudgets();
         } else if (tabName === 'goals') {
             this.renderFinancialGoals();
-        } else if (tabName === 'insights') {
-            this.renderFinancialInsights();
-        } else if (tabName === 'alerts') {
-            this.renderAlerts();
         } else if (tabName === 'ai-coach') {
             this.renderAICoach();
+        } else if (tabName === 'subscription') {
+            this.renderSubscriptionPlans();
+        } else if (tabName === 'alerts') {
+            this.renderAlerts();
         } else if (tabName === 'settings') {
             this.renderSettings();
         }
@@ -685,7 +807,7 @@ class FinanceTracker {
                     <div class="goal-timeline">Target: ${goal.timelineMonths} months • ${this.formatCurrency(goal.monthlySavingsNeeded)}/month needed</div>
                 </div>
                 <div class="goal-actions">
-                    <button class="btn btn-secondary" onclick="financeTracker.deleteGoal(${goal.id})">
+                    <button class="btn btn-secondary" onclick="familyFinanceMonitor.deleteGoal(${goal.id})">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -926,13 +1048,13 @@ class FinanceTracker {
         const dropdown = document.createElement('div');
         dropdown.className = 'profile-dropdown';
         dropdown.innerHTML = `
-            <div class="dropdown-item" onclick="financeTracker.switchTab('settings')">
+            <div class="dropdown-item" onclick="familyFinanceMonitor.switchTab('settings')">
                 <i class="fas fa-cog"></i> Settings
             </div>
-            <div class="dropdown-item" onclick="financeTracker.switchTab('budgets')">
-                <i class="fas fa-calendar-alt"></i> Budgets
+            <div class="dropdown-item" onclick="familyFinanceMonitor.switchTab('goals')">
+                <i class="fas fa-bullseye"></i> Goals
             </div>
-            <div class="dropdown-item" onclick="financeTracker.logout()">
+            <div class="dropdown-item" onclick="familyFinanceMonitor.logout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </div>
         `;
@@ -1131,7 +1253,7 @@ class FinanceTracker {
                     <div class="alert-time">${alert.time}</div>
                 </div>
                 <div class="alert-actions">
-                    <button class="btn btn-sm btn-secondary" onclick="financeTracker.markAlertRead(${alert.id})">
+                    <button class="btn btn-sm btn-secondary" onclick="familyFinanceMonitor.markAlertRead(${alert.id})">
                         <i class="fas fa-check"></i>
                     </button>
                 </div>
@@ -1622,7 +1744,7 @@ class FinanceTracker {
                     <div class="budget-category">${budget.category}</div>
                     <div class="budget-amount">${this.formatCurrency(budget.amount)} (${budget.period})</div>
                 </div>
-                <button class="btn btn-secondary" onclick="financeTracker.deleteBudget(${budget.id})">
+                <button class="btn btn-secondary" onclick="familyFinanceMonitor.deleteBudget(${budget.id})">
                     <i class="fas fa-trash"></i> Delete
                 </button>
             </div>
@@ -1752,8 +1874,449 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+    // New rendering methods for family finance monitor
+    renderChildren() {
+        const childrenGrid = document.getElementById('childrenGrid');
+        if (!childrenGrid) return;
+        
+        if (this.children.length === 0) {
+            childrenGrid.innerHTML = '<p class="no-data">No children added yet</p>';
+            return;
+        }
+
+        childrenGrid.innerHTML = this.children.map(child => `
+            <div class="child-card">
+                <div class="child-header">
+                    <div class="child-avatar">${child.name.charAt(0)}</div>
+                    <div class="child-info">
+                        <h3>${child.name}</h3>
+                        <p>${child.age} years old • ${child.grade} grade</p>
+                    </div>
+                </div>
+                <div class="child-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">${this.formatCurrency(child.currentBalance)}</span>
+                        <span class="stat-label">Current Balance</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${this.formatCurrency(child.spendingThisMonth)}</span>
+                        <span class="stat-label">This Month</span>
+                    </div>
+                </div>
+                <div class="child-account">
+                    <p><strong>Account:</strong> ${child.bankAccount}</p>
+                    <p><strong>Last Transaction:</strong> ${child.lastTransaction}</p>
+                </div>
+                <div class="child-goals">
+                    <h4>Goals Progress</h4>
+                    ${child.goals.map(goal => `
+                        <div class="goal-item-small">
+                            <span>${goal.name}</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${(goal.current / goal.target) * 100}%"></div>
+                            </div>
+                            <span>${this.formatCurrency(goal.current)} / ${this.formatCurrency(goal.target)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    renderSubscriptionPlans() {
+        const subscriptionPlans = document.getElementById('subscriptionPlans');
+        if (!subscriptionPlans) return;
+
+        const plans = [
+            {
+                name: "Basic",
+                price: 9.99,
+                period: "per month",
+                features: [
+                    "Monitor up to 2 children",
+                    "Basic transaction tracking",
+                    "Email alerts",
+                    "Monthly reports"
+                ],
+                current: false
+            },
+            {
+                name: "Family",
+                price: 19.99,
+                period: "per month",
+                features: [
+                    "Monitor up to 4 children",
+                    "Real-time Plaid integration",
+                    "Advanced analytics",
+                    "Goal setting & tracking",
+                    "SMS & email alerts",
+                    "Weekly reports",
+                    "Priority support"
+                ],
+                current: true,
+                featured: true
+            },
+            {
+                name: "Premium",
+                price: 39.99,
+                period: "per month",
+                features: [
+                    "Monitor unlimited children",
+                    "All Family features",
+                    "AI-powered insights",
+                    "Custom alerts",
+                    "Daily reports",
+                    "24/7 phone support",
+                    "Advanced budgeting tools",
+                    "Financial education content"
+                ],
+                current: false
+            }
+        ];
+
+        subscriptionPlans.innerHTML = plans.map(plan => `
+            <div class="plan-card ${plan.featured ? 'featured' : ''}">
+                ${plan.featured ? '<div class="plan-badge">Most Popular</div>' : ''}
+                <div class="plan-header">
+                    <h3 class="plan-name">${plan.name}</h3>
+                    <div class="plan-price">$${plan.price}</div>
+                    <p class="plan-period">${plan.period}</p>
+                </div>
+                <ul class="plan-features">
+                    ${plan.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                </ul>
+                <button class="btn ${plan.current ? 'btn-secondary' : 'btn-primary'}" 
+                        ${plan.current ? 'disabled' : ''}>
+                    ${plan.current ? 'Current Plan' : 'Upgrade Now'}
+                </button>
+            </div>
+        `).join('');
+    }
+
+    renderTransactions() {
+        const transactionsList = document.getElementById('transactionsList');
+        if (!transactionsList) return;
+
+        if (!this.plaidData.transactions || this.plaidData.transactions.length === 0) {
+            transactionsList.innerHTML = '<p class="no-data">No bank transactions found</p>';
+            return;
+        }
+
+        transactionsList.innerHTML = this.plaidData.transactions.slice(0, 50).map(transaction => `
+            <div class="transaction-item plaid-transaction">
+                <div class="transaction-icon ${this.getCategoryIcon(transaction.category)}">
+                    <i class="fas fa-${this.getCategoryIcon(transaction.category)}"></i>
+                </div>
+                <div class="transaction-details">
+                    <div class="transaction-name">${transaction.merchant}</div>
+                    <div class="transaction-category">${transaction.category} • ${transaction.childName}</div>
+                    <div class="transaction-time">${this.formatDate(transaction.date)}</div>
+                </div>
+                <div class="transaction-amount ${transaction.amount < 0 ? 'expense' : 'income'}">
+                    ${this.formatCurrency(transaction.amount)}
+                </div>
+                ${transaction.pending ? '<span class="pending-badge">Pending</span>' : ''}
+            </div>
+        `).join('');
+    }
+
+    getCategoryIcon(category) {
+        const icons = {
+            'Food & Dining': 'utensils',
+            'Shopping': 'shopping-bag',
+            'Entertainment': 'gamepad',
+            'Gas & Fuel': 'gas-pump',
+            'Health & Wellness': 'heart',
+            'Convenience Store': 'store',
+            'Other': 'receipt'
+        };
+        return icons[category] || 'receipt';
+    }
+
+    // Update the login screen
+    showLoginScreen() {
+        document.body.innerHTML = `
+            <div class="login-container">
+                <div class="login-header">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <span>University Finance AI</span>
+                    </div>
+                </div>
+                
+                <div class="hero">
+                    <h1>University Finance AI</h1>
+                    <h2>Campus Life Assistant & Financial Tracking</h2>
+                    <p>Monitor university students' spending, set academic financial goals, and track their progress with real-time bank data integration. Optimize campus life and financial success.</p>
+                    <button class="cta-btn" id="loginBtn">🎓 Login as Administrator</button>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <div class="feature-icon">🎓</div>
+                            <h3>Student Monitoring</h3>
+                            <p>Track multiple university students' accounts and campus spending patterns in real-time.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🏦</div>
+                            <h3>Bank Integration</h3>
+                            <p>Connect to students' bank accounts via Plaid for automatic transaction tracking.</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Academic Goals</h3>
+                            <p>Set and monitor financial goals for each student with progress tracking for campus life.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Re-setup event listeners for login
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            this.loginAsParent();
+        });
+    }
+
+    // AI-Powered Methods
+    generateAIInsights() {
+        this.aiInsights = [
+            {
+                type: 'trend',
+                title: 'Campus Spending Analysis',
+                description: 'Alex is spending 23% more on dining hall meals this month compared to last month. This could impact his study abroad savings goal.',
+                value: '+23%',
+                category: 'dining',
+                child: 'Alex'
+            },
+            {
+                type: 'prediction',
+                title: 'Academic Goal Forecast',
+                description: 'Based on current savings rates, Emma will reach her art supplies goal 1 month early, while Jake needs to increase savings by 15% to meet his engineering calculator goal.',
+                value: '85% accuracy',
+                category: 'goals',
+                child: 'Emma'
+            },
+            {
+                type: 'recommendation',
+                title: 'Smart Budget Adjustment',
+                description: 'Consider reducing Alex\'s dining hall budget by $30/month and redirecting it to his study abroad fund. This would accelerate his goal by 2 months.',
+                value: '$30/month',
+                category: 'budget',
+                child: 'Alex'
+            },
+            {
+                type: 'alert',
+                title: 'Unusual Campus Spending Detected',
+                description: 'Jake made 3 transactions at the Campus Recreation Center in one week totaling $45. This is 40% above his typical fitness budget.',
+                value: '$45',
+                category: 'recreation',
+                child: 'Jake'
+            }
+        ];
+
+        this.renderAIAnalysis();
+    }
+
+    renderAIAnalysis() {
+        // Spending Trends
+        const spendingTrends = document.getElementById('spendingTrends');
+        if (spendingTrends) {
+            const trends = this.aiInsights.filter(insight => insight.type === 'trend');
+            spendingTrends.innerHTML = trends.map(trend => `
+                <div class="trend-item">
+                    <span class="trend-label">${trend.title} (${trend.child})</span>
+                    <span class="trend-value up">${trend.value}</span>
+                </div>
+            `).join('');
+        }
+
+        // AI Predictions
+        const predictions = document.getElementById('aiPredictions');
+        if (predictions) {
+            const preds = this.aiInsights.filter(insight => insight.type === 'prediction');
+            predictions.innerHTML = preds.map(pred => `
+                <div class="prediction-item">
+                    <span class="prediction-label">${pred.title}</span>
+                    <span class="prediction-value">${pred.value}</span>
+                    <span class="prediction-confidence">${pred.description}</span>
+                </div>
+            `).join('');
+        }
+
+        // AI Recommendations
+        const recommendations = document.getElementById('aiRecommendations');
+        if (recommendations) {
+            const recs = this.aiInsights.filter(insight => insight.type === 'recommendation');
+            recommendations.innerHTML = recs.map(rec => `
+                <div class="recommendation-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>${rec.description}</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    renderAICoach() {
+        this.renderAIAnalysis();
+        this.setupAIChat();
+    }
+
+    setupAIChat() {
+        const sendBtn = document.getElementById('sendMessage');
+        const chatInput = document.getElementById('chatInput');
+        
+        if (sendBtn && chatInput) {
+            sendBtn.addEventListener('click', () => {
+                this.sendAIMessage();
+            });
+            
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.sendAIMessage();
+                }
+            });
+        }
+    }
+
+    async sendAIMessage() {
+        const chatInput = document.getElementById('chatInput');
+        const message = chatInput.value.trim();
+        
+        if (!message) return;
+        
+        // Add user message
+        this.addMessageToChat(message, 'user');
+        chatInput.value = '';
+        
+        // Show typing indicator
+        this.addTypingIndicator();
+        
+        try {
+            // Generate AI response
+            const aiResponse = await this.generateAIResponse(message);
+            this.removeTypingIndicator();
+            this.addMessageToChat(aiResponse, 'ai');
+        } catch (error) {
+            this.removeTypingIndicator();
+            this.addMessageToChat('Sorry, I encountered an error. Please try again.', 'ai');
+        }
+    }
+
+    async generateAIResponse(message) {
+        // Simulate AI response based on message content
+        const responses = {
+            'spending': 'I can see that Alex is spending more on dining hall meals this month. Would you like me to suggest some budget adjustments to help him stay on track with his study abroad savings goal?',
+            'goals': 'Your students are making good progress on their academic goals! Emma is ahead of schedule for her art supplies, while Jake might need some encouragement to increase his savings rate for his engineering calculator.',
+            'budget': 'Based on your students\' campus spending patterns, I recommend setting weekly spending limits for each student. This will help them learn better money management skills while in university.',
+            'savings': 'Great question! I can help you create a savings strategy for each student. Would you like me to analyze their current progress and suggest improvements for their academic and personal goals?',
+            'campus': 'I can help you track campus-specific expenses like dining hall usage, textbook purchases, and recreation center fees. What campus spending would you like to analyze?',
+            'textbooks': 'Textbook expenses can be significant! I can help you find ways to save on textbooks through rentals, used books, or digital alternatives.',
+            'dining': 'Campus dining can be expensive! I can analyze your students\' dining patterns and suggest ways to optimize their meal plan usage.',
+            'default': 'I\'m here to help with your students\' campus life and financial planning! I can analyze spending patterns, predict goal completion dates, and provide personalized recommendations for university life. What specific aspect would you like to discuss?'
+        };
+
+        // Simple keyword matching for demo
+        const lowerMessage = message.toLowerCase();
+        for (const [keyword, response] of Object.entries(responses)) {
+            if (lowerMessage.includes(keyword)) {
+                return response;
+            }
+        }
+        return responses.default;
+    }
+
+    addMessageToChat(message, sender) {
+        const chatMessages = document.getElementById('chatMessages');
+        if (!chatMessages) return;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `${sender}-message`;
+        
+        if (sender === 'user') {
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <p>${message}</p>
+                </div>
+                <div class="message-avatar user">
+                    <i class="fas fa-user"></i>
+                </div>
+            `;
+        } else {
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    addTypingIndicator() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (!chatMessages) return;
+        
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'ai-message typing-indicator';
+        typingDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        `;
+        
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    removeTypingIndicator() {
+        const typingIndicator = document.querySelector('.typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+
+    // Enhanced alerts with AI insights
+    renderAlertsSummary() {
+        const container = document.getElementById('alertsSummary');
+        if (!container) return;
+
+        const alerts = [
+            { type: 'warning', text: 'AI detected unusual spending pattern for Alex - 3 dining hall purchases in one day', time: '2 hours ago', ai: true },
+            { type: 'success', text: 'Emma completed her art supplies savings goal! AI prediction was 95% accurate', time: '1 day ago', ai: true },
+            { type: 'info', text: 'AI recommends setting a weekly budget limit for Jake to improve his savings rate for engineering equipment', time: '3 days ago', ai: true },
+            { type: 'warning', text: 'Campus dining budget exceeded by 15% this month', time: '5 hours ago', ai: false }
+        ];
+
+        container.innerHTML = alerts.map(alert => `
+            <div class="alert-item ${alert.type}">
+                <div class="alert-icon">
+                    <i class="fas fa-${alert.type === 'warning' ? 'exclamation-triangle' : alert.type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-text">
+                        ${alert.text}
+                        ${alert.ai ? '<span class="ai-badge">AI</span>' : ''}
+                    </div>
+                    <div class="alert-time">${alert.time}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
 // Initialize the application
-let financeTracker;
+let familyFinanceMonitor;
 document.addEventListener('DOMContentLoaded', () => {
-    financeTracker = new FinanceTracker();
+    familyFinanceMonitor = new FamilyFinanceMonitor();
 });

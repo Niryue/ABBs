@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Finance Monitor - Parental Control</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <span>Family Finance Monitor</span>
+                </div>
+                <div class="welcome-section">
+                    <h1>Welcome back, Sarah!</h1>
+                    <p>Monitor your children's spending and financial goals</p>
+                </div>
+                <div class="header-actions">
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge" id="notificationBadge">3</div>
+                    </div>
+                    <div class="profile-pic" id="profilePic">S</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Family Dashboard</span>
+                </div>
+                <div class="nav-item" data-tab="children">
+                    <i class="fas fa-child"></i>
+                    <span>Children</span>
+                </div>
+                <div class="nav-item" data-tab="goals">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Financial Goals</span>
+                </div>
+                <div class="nav-item" data-tab="transactions">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Bank Transactions</span>
+                </div>
+                <div class="nav-item" data-tab="ai-coach">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </div>
+                <div class="nav-item" data-tab="subscription">
+                    <i class="fas fa-crown"></i>
+                    <span>Subscription</span>
+                </div>
+            </div>
+            <div class="subscription-plan">
+                <div class="plan-icon">👨‍👩‍👧‍👦</div>
+                <div class="plan-content">
+                    <h4>Family Plan</h4>
+                    <p>Monitor up to 4 children</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-icon total-spending">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Family Spending</h3>
+                            <div class="card-value">$1,247.50</div>
+                            <div class="card-change positive">This month</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon children-count">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Children Monitored</h3>
+                            <div class="card-value">3</div>
+                            <div class="card-change neutral">Active accounts</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon goals-progress">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Goals Progress</h3>
+                            <div class="card-value">75%</div>
+                            <div class="card-change positive">On track</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon savings">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Savings</h3>
+                            <div class="card-value">$2,847.50</div>
+                            <div class="card-change positive">+$125 this week</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="main-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Children Overview -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Children Overview</h3>
+                            </div>
+                            <div id="childrenOverview">
+                                <!-- Children will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="card">
+                            <h3>Recent Transactions</h3>
+                            <div id="recentTransactions">
+                                <!-- Transactions will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- AI Financial Advisor -->
+                        <div class="card ai-coach-card">
+                            <div class="coach-header">
+                                <div class="coach-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="coach-title">
+                                    <h3>AI Financial Advisor</h3>
+                                    <p>Smart insights & predictions</p>
+                                </div>
+                            </div>
+                            <div class="coach-content">
+                                <div class="coach-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Family Health</span>
+                                        <span class="stat-value">85%</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Savings Rate</span>
+                                        <span class="stat-value">12%</span>
+                                    </div>
+                                </div>
+                                <div class="coach-message">
+                                    <p><strong>🤖 AI Insight:</strong> Your family is spending 15% more on entertainment this month. Consider setting spending limits for the kids!</p>
+                                </div>
+                                <div class="coach-prediction">
+                                    <p><strong>🔮 Prediction:</strong> At current rates, Alex will reach his car savings goal 2 months early!</p>
+                                </div>
+                            </div>
+                            <div class="coach-actions">
+                                <button class="btn btn-primary" onclick="familyMonitor.switchTab('ai-coach')">
+                                    <i class="fas fa-comments"></i> Chat with AI
+                                </button>
+                                <button class="btn btn-secondary" onclick="familyMonitor.generateAIInsights()">
+                                    <i class="fas fa-brain"></i> Get Insights
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Goals Summary -->
+                        <div class="card">
+                            <h3>Goals Summary</h3>
+                            <div id="goalsSummary">
+                                <!-- Goals will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Alerts -->
+                        <div class="card">
+                            <h3>Recent Alerts</h3>
+                            <div id="alertsSummary">
+                                <!-- Alerts will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children Tab -->
+            <div class="tab-content" id="children">
+                <div class="section-header">
+                    <h2>Children Accounts</h2>
+                </div>
+                <div class="children-grid" id="childrenGrid">
+                    <!-- Children cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Goals Tab -->
+            <div class="tab-content" id="goals">
+                <div class="section-header">
+                    <h2>Financial Goals for Children</h2>
+                </div>
+                <div class="goals-list" id="goalsList">
+                    <!-- Goals will be populated here -->
+                </div>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div class="tab-content" id="transactions">
+                <div class="section-header">
+                    <h2>Bank Transactions (Plaid Data)</h2>
+                    <div class="filter-controls">
+                        <select id="transactionFilter">
+                            <option value="all">All Transactions</option>
+                            <option value="alex">Alex's Account</option>
+                            <option value="emma">Emma's Account</option>
+                            <option value="jake">Jake's Account</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="plaid-status">
+                    <div class="plaid-indicator">
+                        <i class="fas fa-link"></i>
+                        <span>Connected to Plaid</span>
+                        <div class="status-dot active"></div>
+                    </div>
+                </div>
+                <div class="transactions-list" id="transactionsList">
+                    <!-- Transactions will be populated here -->
+                </div>
+            </div>
+
+            <!-- AI Coach Tab -->
+            <div class="tab-content" id="ai-coach">
+                <div class="section-header">
+                    <h2>AI Financial Assistant</h2>
+                    <button class="btn btn-primary" onclick="familyMonitor.generateAIInsights()">
+                        <i class="fas fa-brain"></i> Generate New Insights
+                    </button>
+                </div>
+                
+                <!-- AI Analysis Cards -->
+                <div class="ai-analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Spending Trends</h3>
+                        </div>
+                        <div class="analysis-content" id="spendingTrends">
+                            <!-- AI analysis will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-crystal-ball"></i>
+                            <h3>AI Predictions</h3>
+                        </div>
+                        <div class="analysis-content" id="aiPredictions">
+                            <!-- AI predictions will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Smart Recommendations</h3>
+                        </div>
+                        <div class="analysis-content" id="aiRecommendations">
+                            <!-- AI recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Interface -->
+                <div class="ai-chat-container" id="aiChatContainer">
+                    <div class="chat-header">
+                        <h3>Chat with AI Assistant</h3>
+                        <p>Get personalized financial guidance for your family</p>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="ai-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <p>Hi Sarah! I've analyzed your family's financial patterns and I'm here to help. I can provide insights on spending trends, predict future expenses, and give personalized recommendations for each of your children. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="Ask me anything about your family's finances..." />
+                        <button id="sendMessage" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscription Tab -->
+            <div class="tab-content" id="subscription">
+                <div class="section-header">
+                    <h2>Subscription Plans</h2>
+                    <div class="current-plan-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Family Plan - Active</span>
+                    </div>
+                </div>
+                <div class="subscription-plans" id="subscriptionPlans">
+                    <!-- Subscription plans will be populated here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple Family Finance Monitor
+        class SimpleFamilyMonitor {
+            constructor() {
+                this.children = [
+                    {
+                        id: 1,
+                        name: "Alex",
+                        age: 16,
+                        grade: "11th",
+                        bankAccount: "Chase Student Account",
+                        currentBalance: 847.50,
+                        monthlyAllowance: 200,
+                        spendingThisMonth: 156.75,
+                        lastTransaction: "2 hours ago",
+                        goals: [
+                            { name: "Save for car", target: 2000, current: 500, deadline: "2024-12-31" },
+                            { name: "College fund", target: 5000, current: 1200, deadline: "2025-06-01" }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: "Emma",
+                        age: 14,
+                        grade: "9th",
+                        bankAccount: "Wells Fargo Teen Account",
+                        currentBalance: 423.25,
+                        monthlyAllowance: 150,
+                        spendingThisMonth: 89.50,
+                        lastTransaction: "1 day ago",
+                        goals: [
+                            { name: "New laptop", target: 800, current: 200, deadline: "2024-08-15" },
+                            { name: "Summer camp", target: 1200, current: 300, deadline: "2024-06-01" }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: "Jake",
+                        age: 12,
+                        grade: "7th",
+                        bankAccount: "Bank of America Youth Account",
+                        currentBalance: 156.80,
+                        monthlyAllowance: 100,
+                        spendingThisMonth: 67.25,
+                        lastTransaction: "3 days ago",
+                        goals: [
+                            { name: "Video game console", target: 400, current: 150, deadline: "2024-05-01" },
+                            { name: "Bike upgrade", target: 300, current: 80, deadline: "2024-04-15" }
+                        ]
+                    }
+                ];
+
+                this.transactions = this.generateTransactions();
+                this.currentTab = 'dashboard';
+                this.aiInsights = [];
+                this.chatHistory = [];
+                this.geminiApiKey = 'AIzaSyAwbRCVz2xuBJ4lu5wATsaaqMzF9EJfNmo';
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.renderDashboard();
+                this.generateAIInsights();
+                this.setupAIChat();
+            }
+
+            setupEventListeners() {
+                // Navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        this.switchTab(e.currentTarget.dataset.tab);
+                    });
+                });
+
+                // Transaction filter
+                const filter = document.getElementById('transactionFilter');
+                if (filter) {
+                    filter.addEventListener('change', (e) => {
+                        this.filterTransactions(e.target.value);
+                    });
+                }
+            }
+
+            switchTab(tabName) {
+                // Update active nav item
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+                // Update active content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName).classList.add('active');
+
+                this.currentTab = tabName;
+
+                // Render content based on tab
+                if (tabName === 'dashboard') {
+                    this.renderDashboard();
+                } else if (tabName === 'children') {
+                    this.renderChildren();
+                } else if (tabName === 'goals') {
+                    this.renderGoals();
+                } else if (tabName === 'transactions') {
+                    this.renderTransactions();
+                } else if (tabName === 'ai-coach') {
+                    this.renderAICoach();
+                } else if (tabName === 'subscription') {
+                    this.renderSubscription();
+                }
+            }
+
+            generateTransactions() {
+                const merchants = ["Starbucks", "McDonald's", "Target", "Amazon", "GameStop", "Shell", "Chevron", "Walmart", "Subway", "Pizza Hut", "Netflix", "Spotify", "Apple Store", "Best Buy", "Costco", "CVS", "Walgreens", "7-Eleven", "Chipotle", "Taco Bell"];
+                const categories = {
+                    "Starbucks": "Food & Dining", "McDonald's": "Food & Dining", "Subway": "Food & Dining", "Pizza Hut": "Food & Dining", "Chipotle": "Food & Dining", "Taco Bell": "Food & Dining",
+                    "Target": "Shopping", "Amazon": "Shopping", "Walmart": "Shopping", "Best Buy": "Shopping", "Costco": "Shopping", "Apple Store": "Shopping",
+                    "GameStop": "Entertainment", "Netflix": "Entertainment", "Spotify": "Entertainment",
+                    "Shell": "Gas & Fuel", "Chevron": "Gas & Fuel",
+                    "CVS": "Health & Wellness", "Walgreens": "Health & Wellness", "7-Eleven": "Convenience Store"
+                };
+
+                const transactions = [];
+                for (let i = 0; i < 30; i++) {
+                    const date = new Date();
+                    date.setDate(date.getDate() - i);
+                    
+                    this.children.forEach(child => {
+                        const numTransactions = Math.floor(Math.random() * 4);
+                        for (let j = 0; j < numTransactions; j++) {
+                            const merchant = merchants[Math.floor(Math.random() * merchants.length)];
+                            const amount = -(Math.random() * 50 + 5).toFixed(2);
+                            const category = categories[merchant] || "Other";
+                            
+                            transactions.push({
+                                id: `plaid_${Date.now()}_${Math.random()}`,
+                                childId: child.id,
+                                childName: child.name,
+                                merchant: merchant,
+                                amount: parseFloat(amount),
+                                category: category,
+                                date: date.toISOString().split('T')[0],
+                                pending: Math.random() > 0.9
+                            });
+                        }
+                    });
+                }
+                return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+
+            renderDashboard() {
+                this.renderChildrenOverview();
+                this.renderRecentTransactions();
+                this.renderGoalsSummary();
+                this.renderAlertsSummary();
+            }
+
+            renderChildrenOverview() {
+                const container = document.getElementById('childrenOverview');
+                if (!container) return;
+
+                container.innerHTML = this.children.map(child => `
+                    <div class="child-overview-item">
+                        <div class="child-avatar">${child.name.charAt(0)}</div>
+                        <div class="child-info">
+                            <h4>${child.name} (${child.age} years old)</h4>
+                            <p>Balance: $${child.currentBalance} | This month: $${child.spendingThisMonth}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderRecentTransactions() {
+                const container = document.getElementById('recentTransactions');
+                if (!container) return;
+
+                const recent = this.transactions.slice(0, 5);
+                container.innerHTML = recent.map(tx => `
+                    <div class="transaction-item">
+                        <div class="transaction-icon">
+                            <i class="fas fa-${this.getCategoryIcon(tx.category)}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-name">${tx.merchant}</div>
+                            <div class="transaction-category">${tx.category} • ${tx.childName}</div>
+                        </div>
+                        <div class="transaction-amount expense">$${Math.abs(tx.amount)}</div>
+                    </div>
+                `).join('');
+            }
+
+            renderGoalsSummary() {
+                const container = document.getElementById('goalsSummary');
+                if (!container) return;
+
+                const allGoals = this.children.flatMap(child => child.goals.map(goal => ({...goal, childName: child.name})));
+                container.innerHTML = allGoals.slice(0, 3).map(goal => `
+                    <div class="goal-summary-item">
+                        <h4>${goal.name} (${goal.childName})</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${(goal.current / goal.target) * 100}%"></div>
+                        </div>
+                        <p>$${goal.current} / $${goal.target}</p>
+                    </div>
+                `).join('');
+            }
+
+            renderAlertsSummary() {
+                const container = document.getElementById('alertsSummary');
+                if (!container) return;
+
+                const alerts = [
+                    { type: 'warning', text: 'Alex is approaching his monthly budget limit', time: '2 hours ago' },
+                    { type: 'success', text: 'Emma completed her laptop savings goal!', time: '1 day ago' },
+                    { type: 'info', text: 'Jake made his first transaction this week', time: '3 days ago' }
+                ];
+
+                container.innerHTML = alerts.map(alert => `
+                    <div class="alert-item ${alert.type}">
+                        <div class="alert-icon">
+                            <i class="fas fa-${alert.type === 'warning' ? 'exclamation-triangle' : alert.type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-text">${alert.text}</div>
+                            <div class="alert-time">${alert.time}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderChildren() {
+                const container = document.getElementById('childrenGrid');
+                if (!container) return;
+
+                container.innerHTML = this.children.map(child => `
+                    <div class="child-card">
+                        <div class="child-header">
+                            <div class="child-avatar">${child.name.charAt(0)}</div>
+                            <div class="child-info">
+                                <h3>${child.name}</h3>
+                                <p>${child.age} years old • ${child.grade} grade</p>
+                            </div>
+                        </div>
+                        <div class="child-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">$${child.currentBalance}</span>
+                                <span class="stat-label">Current Balance</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">$${child.spendingThisMonth}</span>
+                                <span class="stat-label">This Month</span>
+                            </div>
+                        </div>
+                        <div class="child-account">
+                            <p><strong>Account:</strong> ${child.bankAccount}</p>
+                            <p><strong>Last Transaction:</strong> ${child.lastTransaction}</p>
+                        </div>
+                        <div class="child-goals">
+                            <h4>Goals Progress</h4>
+                            ${child.goals.map(goal => `
+                                <div class="goal-item-small">
+                                    <span>${goal.name}</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${(goal.current / goal.target) * 100}%"></div>
+                                    </div>
+                                    <span>$${goal.current} / $${goal.target}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderGoals() {
+                const container = document.getElementById('goalsList');
+                if (!container) return;
+
+                const allGoals = this.children.flatMap(child => child.goals.map(goal => ({...goal, childName: child.name})));
+                container.innerHTML = allGoals.map(goal => `
+                    <div class="goal-item">
+                        <div class="goal-info">
+                            <div class="goal-header">
+                                <h4 class="goal-name">${goal.name} (${goal.childName})</h4>
+                                <span class="goal-priority priority-high">High</span>
+                            </div>
+                            <div class="goal-amount">$${goal.current} / $${goal.target}</div>
+                            <div class="goal-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${(goal.current / goal.target) * 100}%"></div>
+                                </div>
+                                <span class="progress-text">${Math.round((goal.current / goal.target) * 100)}% complete</span>
+                            </div>
+                            <div class="goal-timeline">Deadline: ${goal.deadline}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderTransactions() {
+                const container = document.getElementById('transactionsList');
+                if (!container) return;
+
+                container.innerHTML = this.transactions.slice(0, 20).map(tx => `
+                    <div class="transaction-item plaid-transaction">
+                        <div class="transaction-icon ${this.getCategoryIcon(tx.category)}">
+                            <i class="fas fa-${this.getCategoryIcon(tx.category)}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-name">${tx.merchant}</div>
+                            <div class="transaction-category">${tx.category} • ${tx.childName}</div>
+                            <div class="transaction-time">${tx.date}</div>
+                        </div>
+                        <div class="transaction-amount expense">$${Math.abs(tx.amount)}</div>
+                        ${tx.pending ? '<span class="pending-badge">Pending</span>' : ''}
+                    </div>
+                `).join('');
+            }
+
+            renderSubscription() {
+                const container = document.getElementById('subscriptionPlans');
+                if (!container) return;
+
+                const plans = [
+                    {
+                        name: "Basic",
+                        price: 9.99,
+                        period: "per month",
+                        features: ["Monitor up to 2 children", "Basic transaction tracking", "Email alerts", "Monthly reports"],
+                        current: false
+                    },
+                    {
+                        name: "Family",
+                        price: 19.99,
+                        period: "per month",
+                        features: ["Monitor up to 4 children", "Real-time Plaid integration", "Advanced analytics", "Goal setting & tracking", "SMS & email alerts", "Weekly reports", "Priority support"],
+                        current: true,
+                        featured: true
+                    },
+                    {
+                        name: "Premium",
+                        price: 39.99,
+                        period: "per month",
+                        features: ["Monitor unlimited children", "All Family features", "AI-powered insights", "Custom alerts", "Daily reports", "24/7 phone support", "Advanced budgeting tools", "Financial education content"],
+                        current: false
+                    }
+                ];
+
+                container.innerHTML = plans.map(plan => `
+                    <div class="plan-card ${plan.featured ? 'featured' : ''}">
+                        ${plan.featured ? '<div class="plan-badge">Most Popular</div>' : ''}
+                        <div class="plan-header">
+                            <h3 class="plan-name">${plan.name}</h3>
+                            <div class="plan-price">$${plan.price}</div>
+                            <p class="plan-period">${plan.period}</p>
+                        </div>
+                        <ul class="plan-features">
+                            ${plan.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                        </ul>
+                        <button class="btn ${plan.current ? 'btn-secondary' : 'btn-primary'}" ${plan.current ? 'disabled' : ''}>
+                            ${plan.current ? 'Current Plan' : 'Upgrade Now'}
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            filterTransactions(filter) {
+                const container = document.getElementById('transactionsList');
+                if (!container) return;
+
+                let filtered = this.transactions;
+                if (filter !== 'all') {
+                    const childName = filter.charAt(0).toUpperCase() + filter.slice(1);
+                    filtered = this.transactions.filter(tx => tx.childName === childName);
+                }
+
+                container.innerHTML = filtered.slice(0, 20).map(tx => `
+                    <div class="transaction-item plaid-transaction">
+                        <div class="transaction-icon ${this.getCategoryIcon(tx.category)}">
+                            <i class="fas fa-${this.getCategoryIcon(tx.category)}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <div class="transaction-name">${tx.merchant}</div>
+                            <div class="transaction-category">${tx.category} • ${tx.childName}</div>
+                            <div class="transaction-time">${tx.date}</div>
+                        </div>
+                        <div class="transaction-amount expense">$${Math.abs(tx.amount)}</div>
+                        ${tx.pending ? '<span class="pending-badge">Pending</span>' : ''}
+                    </div>
+                `).join('');
+            }
+
+            getCategoryIcon(category) {
+                const icons = {
+                    'Food & Dining': 'utensils',
+                    'Shopping': 'shopping-bag',
+                    'Entertainment': 'gamepad',
+                    'Gas & Fuel': 'gas-pump',
+                    'Health & Wellness': 'heart',
+                    'Convenience Store': 'store',
+                    'Other': 'receipt'
+                };
+                return icons[category] || 'receipt';
+            }
+
+            // AI-Powered Methods
+            generateAIInsights() {
+                this.aiInsights = [
+                    {
+                        type: 'trend',
+                        title: 'Spending Pattern Analysis',
+                        description: 'Alex is spending 23% more on entertainment this month compared to last month. This could impact his car savings goal.',
+                        value: '+23%',
+                        category: 'entertainment',
+                        child: 'Alex'
+                    },
+                    {
+                        type: 'prediction',
+                        title: 'Goal Achievement Forecast',
+                        description: 'Based on current savings rates, Emma will reach her laptop goal 1 month early, while Jake needs to increase savings by 15% to meet his console goal.',
+                        value: '85% accuracy',
+                        category: 'goals',
+                        child: 'Emma'
+                    },
+                    {
+                        type: 'recommendation',
+                        title: 'Smart Budget Adjustment',
+                        description: 'Consider reducing Alex\'s entertainment budget by $30/month and redirecting it to his car fund. This would accelerate his goal by 2 months.',
+                        value: '$30/month',
+                        category: 'budget',
+                        child: 'Alex'
+                    },
+                    {
+                        type: 'alert',
+                        title: 'Unusual Spending Detected',
+                        description: 'Jake made 3 transactions at GameStop in one week totaling $89. This is 40% above his typical gaming budget.',
+                        value: '$89',
+                        category: 'entertainment',
+                        child: 'Jake'
+                    }
+                ];
+
+                this.renderAIAnalysis();
+            }
+
+            renderAIAnalysis() {
+                // Spending Trends
+                const spendingTrends = document.getElementById('spendingTrends');
+                if (spendingTrends) {
+                    const trends = this.aiInsights.filter(insight => insight.type === 'trend');
+                    spendingTrends.innerHTML = trends.map(trend => `
+                        <div class="trend-item">
+                            <span class="trend-label">${trend.title} (${trend.child})</span>
+                            <span class="trend-value up">${trend.value}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // AI Predictions
+                const predictions = document.getElementById('aiPredictions');
+                if (predictions) {
+                    const preds = this.aiInsights.filter(insight => insight.type === 'prediction');
+                    predictions.innerHTML = preds.map(pred => `
+                        <div class="prediction-item">
+                            <span class="prediction-label">${pred.title}</span>
+                            <span class="prediction-value">${pred.value}</span>
+                            <span class="prediction-confidence">${pred.description}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // AI Recommendations
+                const recommendations = document.getElementById('aiRecommendations');
+                if (recommendations) {
+                    const recs = this.aiInsights.filter(insight => insight.type === 'recommendation');
+                    recommendations.innerHTML = recs.map(rec => `
+                        <div class="recommendation-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>${rec.description}</span>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            renderAICoach() {
+                this.renderAIAnalysis();
+                this.setupAIChat();
+            }
+
+            setupAIChat() {
+                const sendBtn = document.getElementById('sendMessage');
+                const chatInput = document.getElementById('chatInput');
+                
+                if (sendBtn && chatInput) {
+                    sendBtn.addEventListener('click', () => {
+                        this.sendAIMessage();
+                    });
+                    
+                    chatInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            this.sendAIMessage();
+                        }
+                    });
+                }
+            }
+
+            async sendAIMessage() {
+                const chatInput = document.getElementById('chatInput');
+                const message = chatInput.value.trim();
+                
+                if (!message) return;
+                
+                // Add user message
+                this.addMessageToChat(message, 'user');
+                chatInput.value = '';
+                
+                // Show typing indicator
+                this.addTypingIndicator();
+                
+                try {
+                    // Generate AI response
+                    const aiResponse = await this.generateAIResponse(message);
+                    this.removeTypingIndicator();
+                    this.addMessageToChat(aiResponse, 'ai');
+                } catch (error) {
+                    this.removeTypingIndicator();
+                    this.addMessageToChat('Sorry, I encountered an error. Please try again.', 'ai');
+                }
+            }
+
+            async generateAIResponse(message) {
+                // Simulate AI response based on message content
+                const responses = {
+                    'spending': 'I can see that Alex is spending more on entertainment this month. Would you like me to suggest some budget adjustments to help him stay on track with his car savings goal?',
+                    'goals': 'Your children are making good progress on their goals! Emma is ahead of schedule for her laptop, while Jake might need some encouragement to increase his savings rate.',
+                    'budget': 'Based on your family\'s spending patterns, I recommend setting weekly spending limits for each child. This will help them learn better money management skills.',
+                    'savings': 'Great question! I can help you create a savings strategy for each child. Would you like me to analyze their current progress and suggest improvements?',
+                    'default': 'I\'m here to help with your family\'s financial planning! I can analyze spending patterns, predict goal completion dates, and provide personalized recommendations. What specific aspect would you like to discuss?'
+                };
+
+                // Simple keyword matching for demo
+                const lowerMessage = message.toLowerCase();
+                for (const [keyword, response] of Object.entries(responses)) {
+                    if (lowerMessage.includes(keyword)) {
+                        return response;
+                    }
+                }
+                return responses.default;
+            }
+
+            addMessageToChat(message, sender) {
+                const chatMessages = document.getElementById('chatMessages');
+                if (!chatMessages) return;
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `${sender}-message`;
+                
+                if (sender === 'user') {
+                    messageDiv.innerHTML = `
+                        <div class="message-content">
+                            <p>${message}</p>
+                        </div>
+                        <div class="message-avatar user">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>${message}</p>
+                        </div>
+                    `;
+                }
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            addTypingIndicator() {
+                const chatMessages = document.getElementById('chatMessages');
+                if (!chatMessages) return;
+                
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'ai-message typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            removeTypingIndicator() {
+                const typingIndicator = document.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+
+            // Enhanced alerts with AI insights
+            renderAlertsSummary() {
+                const container = document.getElementById('alertsSummary');
+                if (!container) return;
+
+                const alerts = [
+                    { type: 'warning', text: 'AI detected unusual spending pattern for Alex - 3 entertainment purchases in one day', time: '2 hours ago', ai: true },
+                    { type: 'success', text: 'Emma completed her laptop savings goal! AI prediction was 95% accurate', time: '1 day ago', ai: true },
+                    { type: 'info', text: 'AI recommends setting a weekly budget limit for Jake to improve his savings rate', time: '3 days ago', ai: true },
+                    { type: 'warning', text: 'Family entertainment budget exceeded by 15% this month', time: '5 hours ago', ai: false }
+                ];
+
+                container.innerHTML = alerts.map(alert => `
+                    <div class="alert-item ${alert.type}">
+                        <div class="alert-icon">
+                            <i class="fas fa-${alert.type === 'warning' ? 'exclamation-triangle' : alert.type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-text">
+                                ${alert.text}
+                                ${alert.ai ? '<span class="ai-badge">AI</span>' : ''}
+                            </div>
+                            <div class="alert-time">${alert.time}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Initialize the application
+        let familyMonitor;
+        document.addEventListener('DOMContentLoaded', () => {
+            familyMonitor = new SimpleFamilyMonitor();
+        });
+    </script>
+</body>
+</html>
